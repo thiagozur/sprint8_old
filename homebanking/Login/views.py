@@ -30,6 +30,6 @@ def login(request):
 def createclients(request):
     clients = Cliente.objects.all()
     for i in clients:
-        nuser = User.objects.create_user(username = f'{i.customer_name[0]}{i.customer_surname}{i.customer_id}', password = i.customer_dni, email = f'{i.customer_name[0]}{i.customer_surname}@gmail.com', first_name = {i.customer_name}, last_name = {i.customer_surname})
+        nuser = User.objects.create_user(username = f'{i.customer_name[0]}{i.customer_surname}{i.customer_id}', password = i.customer_dni, email = f'{i.customer_name[0]}{i.customer_surname}@gmail.com', first_name = i.customer_name, last_name = i.customer_surname)
         nuser.save()
     return HttpResponse('<h1>Usuarios creados</h1>')
