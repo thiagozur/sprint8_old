@@ -7,7 +7,6 @@ class TipoClientes(models.Model):
     tipo = models.TextField(db_column='Tipo')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'tipo_clientes'
 
 class Cliente(models.Model):
@@ -19,7 +18,6 @@ class Cliente(models.Model):
     branch_id = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'cliente'
 
 class Empleado(models.Model):
@@ -31,5 +29,4 @@ class Empleado(models.Model):
     branch_id = models.IntegerField()
 
     class Meta:
-        managed = False
         db_table = 'empleado'

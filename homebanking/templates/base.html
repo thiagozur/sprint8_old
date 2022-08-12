@@ -14,6 +14,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&display=swap" rel="stylesheet">
 </head>
+{% block bg %}
+{% endblock %}
+<style>
+    html,body{
+        overflow-x: hidden;
+    }
+</style>
 <body>
     <div class="container">
         <div class="row">
@@ -23,7 +30,7 @@
             <div class="col-sm-3 col-5 m-auto">
                 <div class="dropdown">
                     <a class="btn btn-secondary bg-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"> <i class="fa-solid fa-user me-1"></i>
-                    Usuario
+                    {% block currentuser %}{% endblock %}
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><a class="dropdown-item" href="./empty.html">Cuentas</a></li>
@@ -46,10 +53,10 @@
 
     <div class="container barra">
         <div class="row">
-            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado" href="./home.html"><div>Inicio</div> </a>
-            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado" href="./transferencias.html"><div>Transferencias</div> </a>
-            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado" href="./inversiones.html"><div>Inversiones</div> </a>
-            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado" href="./empty.html"><div>Servicios</div> </a>
+            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado {% block selhome %}{% endblock %}" href="./home.html"><div>Inicio</div> </a>
+            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado {% block seltran %}{% endblock %}" href="./transferencias.html"><div>Transferencias</div> </a>
+            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado {% block selinv %}{% endblock %}" href="./inversiones.html"><div>Inversiones</div> </a>
+            <a class="col-12 col-sm-3 text-center sel p-2 m-auto subrayado {% block selserv %}{% endblock %}" href="./empty.html"><div>Servicios</div> </a>
         </div> 
     </div>
     {% block content %}
@@ -76,9 +83,5 @@
     </ul>
     <small>ITBANK - Copyright 2022. Todos los derechos reservados.</small>
 </footer>
-<style>
-    html,body{
-        overflow-x: hidden;
-    }
-</style>
+
 </html>

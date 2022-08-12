@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}ITBANK Homebanking{% endblock %}
+
+{% block style %}{% static 'Clientes/homestyle.css' %}{% endblock %}
+
+{% block bg %}
+<style>
+    body {
+        background-image: url("{% static 'Clientes/homebg.jpg' %}");
+    }
+</style>
+{% endblock %}
+
+{% block currentuser %}{{name}}{% endblock %}
+
+{% block selhome %}currentsel{% endblock %}
+
+{% block content %}
+<div class="container arriba">
+    <div class="card w-80 fondo-t">
+        <div class="card-body">
+            <h4 class="card-title titulo">Caja de ahorro en pesos</h4>
+            <h5>$100.000,00</h5>
+        </div>
+    </div>
+</div>
+
+<div class="container arriba">
+    <div class="card w-80 fondo-t">
+        <div class="card-body">
+            <h4 class="card-title">Tarjetas</h4>
+            <a class="nolink" href="./empty.html"><p class="card-text"><i class="fa-solid fa-credit-card"></i> Tarjeta de débito</p></a>
+            <a class="nolink" href="./empty.html"><p class="card-text"><i class="fa-solid fa-credit-card"></i> Tarjeta de crédito</p></a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
-app_name = 'Cliente'
+app_name = 'Login'
 
 urlpatterns = [
-    path('', views.home, name='home')
+    path('', views.login, name='login'),
 ]
+
