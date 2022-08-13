@@ -20,6 +20,9 @@ from Login import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', include('Clientes.urls', namespace='Clientes')),
+    path('accounts/', include('Cuentas.urls', namespace='Cuentas')),
+    path('tarjetas/', include('Tarjetas.urls', namespace='Tarjetas')),
+    path('prestamos/', include('Prestamos.urls', namespace='Prestamos')),
     path('', include('Login.urls', namespace='Login')),
-    path('createclients/', views.createclients, name='createclients')
+    path('createclients/', views.createclients, name='createclients'),
 ]

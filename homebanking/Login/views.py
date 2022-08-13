@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from .forms import LoginForm
-from django.contrib.auth import authenticate, login as dlogin, logout as dlogout
+from django.contrib.auth import authenticate, login as dlogin
 from Clientes.models import Cliente
 from django.contrib.auth.models import User
 

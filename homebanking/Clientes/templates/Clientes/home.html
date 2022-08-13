@@ -38,7 +38,7 @@
         <div class="card-body">
             <h1 class="card-title mb-4">Tarjetas</h1>
             {% for c in cards %}
-            <a class="nolink" href="./empty.html"><h5 class="ml-3"><i class="fa-solid fa-credit-card mr-3"></i>Tarjeta de {{c.tipo}}: **** **** **** {{c.numero|hidenum}}</h5></a>
+            <a class="nolink" href="./empty.html"><h5 class="ml-3"><i class="fa-solid fa-credit-card mr-3"></i>Tarjeta de {{c.tipo|tilde}}: **** **** **** {{c.numero|hidenum}}</h5></a>
             {% endfor %}
         </div>
     </div>

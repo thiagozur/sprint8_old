@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 from . import views
 
@@ -6,4 +5,5 @@ app_name = 'Cliente'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('logout/', views.logout, name='logout'),
 ]

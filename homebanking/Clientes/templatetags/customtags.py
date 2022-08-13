@@ -17,3 +17,39 @@ def hidenum(value):
     return value
 
 register.filter('hidenum', hidenum)
+
+def spacer(value):
+    value = str(value)
+    value = value.replace('_', ' ')
+    value = value.capitalize()
+    return value
+
+register.filter('spacer', spacer)
+
+def date(value):
+    value = str(value)
+    value = value.split(' ')[0]
+    return value
+
+register.filter('date', date)
+
+def time(value):
+    value = str(value)
+    value = value.split(' ')[1]
+    return value
+
+register.filter('time', time)
+
+def tilde(value):
+    value = str(value)
+    value = value.replace('e', 'é')
+    return value
+
+register.filter('tilde', tilde)
+
+def lower(value):
+    value = str(value)
+    value = value.lower()
+    return value
+
+register.filter('lower', lower)

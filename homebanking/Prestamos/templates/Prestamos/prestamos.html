@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load customtags %}
+
+{% block title %}ITBANK Homebanking{% endblock %}
+
+{% block style %}{% static 'Cuentas/accstylesheet.css' %}{% endblock %}
+
+{% block bg %}
+<style>
+    body {
+        background-image: url("{% static 'Tarjetas/cardbg.jpg' %}");
+    }
+</style>
+{% endblock %}
+
+{% block currentuser %}{{name}}{% endblock %}
+
+{% block selloan %}currentsel{% endblock %}
+
+{% block content %}
+{% for l in loans %}
+<div class="container arriba mt-5">
+    <div class="card w-80 fondo-t">
+        <div class="card-body">
+                <h4 class="card-title titulo p-2">● Préstamo {{l.loan_type|lower}}</h4>
+                <h5 class="ml-3 mb-3 number">Monto: ${{l.loan_total|decim}}</h5>
+                <h5 class="ml-3 mb-3 number">Fecha: {{l.loan_date}}</h5>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
