@@ -97,11 +97,19 @@ header nav ul li a {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
-
+.titulo {
+    background-color: rgba(62, 58, 150, 0.6);
+    border-radius: 5px;
+}
 
 .nolink{
      text-decoration: none;
      color: #212529;
+}
+
+.nolink:hover{
+    text-decoration: none;
+    color: #212529;
 }
 
 .redes {
@@ -147,5 +155,9 @@ footer a:hover {
 }
 
 .subrayado{
+    text-decoration: none;
+}
+
+.subrayado:hover{
     text-decoration: none;
 }

@@ -2,9 +2,11 @@
 
 {% load static %}
 
+{% load customtags %}
+
 {% block title %}ITBANK Homebanking{% endblock %}
 
-{% block style %}{% static 'Clientes/homestyle.css' %}{% endblock %}
+{% block style %}{% static 'Clientes/homestylesheet.css' %}{% endblock %}
 
 {% block bg %}
 <style>
@@ -22,8 +24,11 @@
 <div class="container arriba">
     <div class="card w-80 fondo-t">
         <div class="card-body">
-            <h4 class="card-title titulo">Caja de ahorro en pesos</h4>
-            <h5>$100.000,00</h5>
+            <h1 class="card-title mb-4">Cuentas</h1>
+            {% for acc in accounts %}
+                <h4 class="card-title titulo p-2">● {{acc.typeid.tipo}}</h4>
+                <h5 class="ml-3 mb-3">Balance: ${{acc.balance|decim}}</h5>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -31,9 +36,10 @@
 <div class="container arriba">
     <div class="card w-80 fondo-t">
         <div class="card-body">
-            <h4 class="card-title">Tarjetas</h4>
-            <a class="nolink" href="./empty.html"><p class="card-text"><i class="fa-solid fa-credit-card"></i> Tarjeta de débito</p></a>
-            <a class="nolink" href="./empty.html"><p class="card-text"><i class="fa-solid fa-credit-card"></i> Tarjeta de crédito</p></a>
+            <h1 class="card-title mb-4">Tarjetas</h1>
+            {% for c in cards %}
+            <a class="nolink" href="./empty.html"><h5 class="ml-3"><i class="fa-solid fa-credit-card mr-3"></i>Tarjeta de {{c.tipo}}: **** **** **** {{c.numero|hidenum}}</h5></a>
+            {% endfor %}
         </div>
     </div>
 </div>

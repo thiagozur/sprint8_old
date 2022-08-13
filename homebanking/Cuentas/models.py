@@ -7,7 +7,6 @@ class TipoCuentas(models.Model):
     tipo = models.TextField(db_column='Tipo')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'tipo_cuentas'
 
 class Cuenta(models.Model):
@@ -18,7 +17,6 @@ class Cuenta(models.Model):
     typeid = models.ForeignKey('TipoCuentas', models.DO_NOTHING, db_column='typeId', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'cuenta'
 
 class Movimientos(models.Model):
@@ -29,5 +27,4 @@ class Movimientos(models.Model):
     mov_datetime = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'movimientos'

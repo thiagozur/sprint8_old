@@ -20,8 +20,8 @@ def login(request):
                     return HttpResponseRedirect('home/')
             else:
                 loginform = LoginForm()
-                loginform.fields['username'].widget.attrs['placeholder'] = 'Usuario o contraseña incorrectos, vuelva a intentarlo'
-                loginform.fields['password'].widget.attrs['placeholder'] = 'Usuario o contraseña incorrectos, vuelva a intentarlo'
+                loginform.fields['username'].widget.attrs['placeholder'] = 'Usuario o contraseña incorrectos'
+                loginform.fields['password'].widget.attrs['placeholder'] = 'Usuario o contraseña incorrectos'
                 return render(request, 'Login/login.html', {'loginform' : loginform})       
     else:
         loginform = LoginForm()
