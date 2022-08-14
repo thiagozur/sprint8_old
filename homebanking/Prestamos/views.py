@@ -26,7 +26,7 @@ def prestamos(request):
 
     for i in cuentas:
         loanlist = Prestamo.objects.filter(customer_id=i.customer_id)
-        prestamos[str(i.customer_id)] = loanlist
+        prestamos[str(i.account_id)] = loanlist
 
     print(prestamos)
     return render(request, 'Prestamos/prestamos.html', {'name' : f'{userobj.first_name} {userobj.last_name[0]}', 'loans' : prestamos})
