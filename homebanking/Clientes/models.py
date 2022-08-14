@@ -1,4 +1,5 @@
 from django.db import models
+from random import randrange
 
 # Create your models here.
 
@@ -15,7 +16,7 @@ class Cliente(models.Model):
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI')  # Field name made lowercase.
     dob = models.TextField(blank=True, null=True)
-    branch_id = models.IntegerField()
+    branch_id = models.IntegerField(default=randrange(1, 100))
 
     class Meta:
         db_table = 'cliente'

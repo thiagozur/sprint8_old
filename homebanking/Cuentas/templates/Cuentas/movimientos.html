@@ -26,7 +26,7 @@
     <div class="card w-80 fondo-t">
         <div class="card-body">
             <h4 class="card-title titulo p-2">{{m.mov_type|spacer}}</h4>
-            <h5 class="ml-3 mb-3">Monto: {{m.mov_total}}</h5>
+            <h5 class="ml-3 mb-3">Monto: {{m.mov_total|decim}}</h5>
             <h5 class="ml-3 mb-3">Fecha: {{m.mov_datetime|date}}</h5>
             <h5 class="ml-3 mb-3">Hora: {{m.mov_datetime|time}}</h5>
         </div>

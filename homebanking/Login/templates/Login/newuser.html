@@ -1,0 +1,53 @@
+{% extends 'Login/authbase.html' %}
+{% load static %}
+
+{% block title %}Login ITBANK{% endblock %}
+
+{% block optstyle %}{% static 'Login/calendar.css' %}{% endblock %}
+
+{% block content %}
+<form method="post" class="row m-2 p-4 col-lg-5 col-sm-12 text-center" id="columna_derecha">
+    {% csrf_token %}
+    <h2 class="p-2">Crear nueva cuenta</h2>
+    {% for field in newuserform %}
+        {% if forloop.counter != 7 %}
+            <div class="col-8 mb-1">
+                <label for="{{field.auto_id}}" class="visually-hidden">_spacer</label>
+                {{field}}
+            </div>
+        {% elif forloop.counter == 4 %}
+            <div class="demo col-8">
+                <label for="datepicker" class="visually-hidden">_spacer</label>
+                {{field}}
+                <span id="calendar"></span>
+            </div>
+        {% else %}
+        <div class="col-8">
+            <label for="{{field.auto_id}}" class="visually-hidden">_spacer</label>
+            {{field}}
+        </div>
+        <div class="col-4">
+            <button type="button" onclick="mostrarToggle()" class="btn btn-secondary mb-1">Mostrar</button> 
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="row">
+        <button class="btn btn-primary col-8 mleft" type="submit">Crear Cuenta</button>
+    </div>
+</form>
+<script src="{% static 'Login/calendarscript.js' %}"></script>
+<script>
+    var trigger = document.querySelector('#datePicker');
+    var dateComponent = new DatePicker({
+        el: document.querySelector('#calendar'),
+        trigger: trigger,
+        onchange: function (curr) {
+            trigger.value = curr;
+        }
+    });
+
+    trigger.onfocus = function () {
+        dateComponent.show();
+    };
+</script>
+{% endblock %}

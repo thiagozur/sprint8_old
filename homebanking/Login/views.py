@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
-from .forms import LoginForm
+from .forms import LoginForm, NewUserForm
 from django.contrib.auth import authenticate, login as dlogin
 from Clientes.models import Cliente
 from django.contrib.auth.models import User
@@ -26,6 +26,26 @@ def login(request):
     else:
         loginform = LoginForm()
     return render(request, 'Login/login.html', {'loginform' : loginform})
+
+def newuser(request):
+    if request.method == 'POST':
+        newuserform = NewUserForm(request.POST)
+        if newuserform.is_valid():
+            nudata = newuserform.cleaned_data
+            nuser = User.objects.create_user(username=nudata['username'], password=nudata['password'], email=nudata['email'], first_name=nudata['firstname'], last_name=nudata['lastname'])
+            nuclient = Cliente(customer_id=nuser.id, customer_name=nuser.first_name, customer_surname=nuser.last_name, customer_dni=nudata['dni'], dob=nudata['dob'])
+            nuser.save()
+            nuclient.save()
+            dlogin(request, nuser)
+            return HttpResponseRedirect('/home/')
+        else:
+            newuserform = NewUserForm()
+            for i in newuserform.fields:
+                newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados, vuelva a intentarlo'
+            return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
+    else:
+        newuserform = NewUserForm()
+    return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
 
 def createclients(request):
     clients = Cliente.objects.all()
