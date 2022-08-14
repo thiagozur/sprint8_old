@@ -53,3 +53,8 @@ def lower(value):
     return value
 
 register.filter('lower', lower)
+
+def get_index(l, i):
+    return l[i]
+
+register.filter('get_index', get_index)

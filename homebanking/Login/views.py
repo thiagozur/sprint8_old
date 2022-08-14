@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login as dlogin
 from Clientes.models import Cliente
 from django.contrib.auth.models import User
 from datetime import datetime
+from random import randrange
 
 # Create your views here.
 
@@ -38,18 +39,16 @@ def newuser(request):
                 tdate = commarem.split('-')
                 if len(tdate) != 3:
                     newuserform = NewUserForm()
-                    for i in newuserform.fields:
-                        newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados'
+                    newuserform.fields['dob'].widget.attrs['placeholder'] = 'Fecha inadecuada'
                     return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
                 datetimeobj = datetime(int(tdate[0]), int(tdate[1]), int(tdate[2]))
                 date = datetimeobj.strftime('%Y-%m-%d')
             except:
                 newuserform = NewUserForm()
-                for i in newuserform.fields:
-                    newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados'
+                newuserform.fields['dob'].widget.attrs['placeholder'] = 'Fecha inadecuada'
                 return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
             nuser = User.objects.create_user(username=nudata['username'], password=nudata['password'], email=nudata['email'], first_name=nudata['firstname'], last_name=nudata['lastname'])
-            nuclient = Cliente(customer_id=nuser.id, customer_name=nuser.first_name, customer_surname=nuser.last_name, customer_dni=nudata['dni'], dob=date)
+            nuclient = Cliente(customer_id=nuser.id, customer_name=nuser.first_name, customer_surname=nuser.last_name, customer_dni=nudata['dni'], dob=date, branch_id=randrange(1, 100), tipo=randrange(1, 3))
             nuser.save()
             nuclient.save()
             dlogin(request, nuser)
@@ -69,3 +68,10 @@ def createclients(request):
         nuser = User.objects.create_user(username = f'{i.customer_name[0]}{i.customer_surname}{i.customer_id}', password = i.customer_dni, email = f'{i.customer_name[0]}{i.customer_surname}@gmail.com', first_name = i.customer_name, last_name = i.customer_surname)
         nuser.save()
     return HttpResponse('<h1>Usuarios creados</h1>')
+
+def addtypes(request):
+    clients = Cliente.objects.all()
+    for i in clients:
+        i.tipo = randrange(1, 3)
+        i.save()
+    return HttpResponse('<h1>Tipos añadidos</h1>')

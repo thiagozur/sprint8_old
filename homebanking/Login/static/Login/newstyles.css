@@ -5,6 +5,10 @@
     background-color: rgb(220, 219, 232);
 }
 
+.topper {
+    z-index: 10000;
+}
+
 .year, .fecha {
     background-color: rgb(42, 37, 170);
     border-radius: 5px;

@@ -5,5 +5,6 @@ app_name = 'Prestamos'
 
 urlpatterns = [
     path('', views.prestamos, name='prestamos'),
-    path('loanreq/', views.loanreq, name='loanreq'),
+    path('loanreq/<acc>', views.loanreq, name='loanreq'),
+    path('loanend/', views.loanend, name='loanend'),
 ]
