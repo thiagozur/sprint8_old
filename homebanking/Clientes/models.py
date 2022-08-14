@@ -16,7 +16,8 @@ class Cliente(models.Model):
     customer_surname = models.TextField()  # This field type is a guess.
     customer_dni = models.TextField(db_column='customer_DNI')  # Field name made lowercase.
     dob = models.TextField(blank=True, null=True)
-    branch_id = models.IntegerField(default=randrange(1, 100))
+    branch_id = models.IntegerField()
+    
 
     class Meta:
         db_table = 'cliente'

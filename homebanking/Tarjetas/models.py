@@ -8,7 +8,6 @@ class MarcasTarjetas(models.Model):
     marca = models.TextField(db_column='Marca')  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'marcas_tarjetas'
 
 class Tarjetas(models.Model):
@@ -18,9 +17,8 @@ class Tarjetas(models.Model):
     fechaotorgamiento = models.TextField(db_column='FechaOtorgamiento')  # Field name made lowercase.
     fechaexpiracion = models.TextField(db_column='FechaExpiracion')  # Field name made lowercase.
     tipo = models.TextField(db_column='Tipo')  # Field name made lowercase.
-    marcaid = models.ForeignKey(MarcasTarjetas, models.DO_NOTHING, db_column='MarcaId')  # Field name made lowercase.
-    customerid = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='CustomerId')  # Field name made lowercase.
+    marcaid = models.ForeignKey(MarcasTarjetas, models.DO_NOTHING, db_column='MarcaId', default=2)  # Field name made lowercase.
+    customerid = models.ForeignKey(Cliente, models.DO_NOTHING, db_column='CustomerId', default=23)  # Field name made lowercase.
 
     class Meta:
-        managed = False
         db_table = 'tarjetas'

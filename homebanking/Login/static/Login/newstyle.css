@@ -2,11 +2,26 @@
     margin: 0;
     padding: 0;
     max-width: 310px;
+    background-color: rgb(220, 219, 232);
+}
+
+.year, .fecha {
+    background-color: rgb(42, 37, 170);
+    border-radius: 5px;
+}
+
+.marginer {
+    margin-left: 0.8rem;
+    max-width: 19rem;
+}
+
+.subtn {
+    max-width: 19rem;
 }
 
 .calendar-header {
     position: relative;
-    background-color: rgba(30, 28, 75, 0.821);
+    background-color: rgb(55, 47, 212);
     padding: 10px 0;
     overflow: auto;
     margin: 0;
@@ -98,7 +113,7 @@ ul > li.weekend {
 }
 
 ul > li.disabled {
-    color: lightgray;
+    color: rgb(182, 131, 131);
     margin: 0;
     padding: 0;
 }

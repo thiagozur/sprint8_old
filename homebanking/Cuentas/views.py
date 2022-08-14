@@ -12,7 +12,11 @@ def accounts(request):
     uname = userobj.first_name
     usurname = userobj.last_name
     ufullname = uname[0] + usurname
-    uid = userobj.username.split(ufullname)[1]
+    uidt = userobj.username.split(ufullname)
+    if len(uidt) == 2:
+        uid = userobj.username.split(ufullname)[1]
+    else:
+        uid = userobj.id
     clientobj = Cliente.objects.get(customer_id = uid)
     cuentas = Cuenta.objects.filter(customer_id = clientobj.customer_id)
     return render(request, 'Cuentas/accounts.html', {'name' : f'{userobj.first_name} {userobj.last_name[0]}', 'accounts' : cuentas})

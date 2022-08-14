@@ -27,7 +27,7 @@
         {% endif %}
     {% endfor %}
     <div class="row">
-        <span><strong> ¿No tenés cuenta? </strong> <a href="./empty.html">Registrate</a></span>
+        <span><strong> ¿No tenés cuenta? </strong> <a href="{% url 'Login:newuser' %}">Registrate</a></span>
     </div>
     <div class="row">
         <span><a href="{% url 'Cuentas:emptynotlog' %}"> Recuperar contraseña </a></span>

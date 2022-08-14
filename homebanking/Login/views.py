@@ -3,6 +3,7 @@ from .forms import LoginForm, NewUserForm
 from django.contrib.auth import authenticate, login as dlogin
 from Clientes.models import Cliente
 from django.contrib.auth.models import User
+from datetime import datetime
 
 # Create your views here.
 
@@ -32,8 +33,23 @@ def newuser(request):
         newuserform = NewUserForm(request.POST)
         if newuserform.is_valid():
             nudata = newuserform.cleaned_data
+            try:
+                commarem = nudata['dob'][:-1]
+                tdate = commarem.split('-')
+                if len(tdate) != 3:
+                    newuserform = NewUserForm()
+                    for i in newuserform.fields:
+                        newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados'
+                    return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
+                datetimeobj = datetime(int(tdate[0]), int(tdate[1]), int(tdate[2]))
+                date = datetimeobj.strftime('%Y-%m-%d')
+            except:
+                newuserform = NewUserForm()
+                for i in newuserform.fields:
+                    newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados'
+                return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
             nuser = User.objects.create_user(username=nudata['username'], password=nudata['password'], email=nudata['email'], first_name=nudata['firstname'], last_name=nudata['lastname'])
-            nuclient = Cliente(customer_id=nuser.id, customer_name=nuser.first_name, customer_surname=nuser.last_name, customer_dni=nudata['dni'], dob=nudata['dob'])
+            nuclient = Cliente(customer_id=nuser.id, customer_name=nuser.first_name, customer_surname=nuser.last_name, customer_dni=nudata['dni'], dob=date)
             nuser.save()
             nuclient.save()
             dlogin(request, nuser)
@@ -41,7 +57,7 @@ def newuser(request):
         else:
             newuserform = NewUserForm()
             for i in newuserform.fields:
-                newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados, vuelva a intentarlo'
+                newuserform.fields[i].widget.attrs['placeholder'] = 'Datos inadecuados'
             return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
     else:
         newuserform = NewUserForm()

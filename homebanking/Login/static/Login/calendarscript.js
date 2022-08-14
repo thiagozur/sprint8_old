@@ -579,5 +579,3 @@ var DatePicker = (function () {
   })();
   
   !window.DatePicker && (window.DatePicker = DatePicker);
-
-  

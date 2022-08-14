@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% load customtags %}
+
+{% block title %}ITBANK Homebanking{% endblock %}
+
+{% block style %}{% static 'Cuentas/accstylesheet.css' %}{% endblock %}
+
+{% block bg %}
+<style>
+    body {
+        background-image: url("{% static 'Tarjetas/cardbg.jpg' %}");
+    }
+</style>
+{% endblock %}
+
+{% block currentuser %}{{name}}{% endblock %}
+
+{% block selloan %}currentsel{% endblock %}
+
+{% block content %}
+<form method="post" class="row m-2 p-4 col-lg-5 col-sm-12 text-center" id="columna_derecha">
+    {% csrf_token %}
+    <div class="container">
+        <h2 class="p-2 row">Solicitud de préstamos pre-aprobados</h2>
+        {% for field in loanform %}
+            <div class="row mb-3">
+                <label for="{{field.auto_id}}">{{field.label}}</label>
+                {{field}}
+            </div>
+        {% endfor %}
+        <button class="btn btn-primary col-4" type="submit">Solicitar</button>
+    </div>
+</form>
+{% endblock %}

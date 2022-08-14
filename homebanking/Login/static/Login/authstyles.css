@@ -75,3 +75,8 @@ footer a:hover {
 .mleft {
     margin-left: .6rem;
 }
+
+.backbtn {
+    margin-left: 0.9rem;
+    width: 5.3rem;
+}
