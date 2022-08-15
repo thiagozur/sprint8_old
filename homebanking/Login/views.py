@@ -74,6 +74,6 @@ def createclients(request):
 def addtypes(request):
     clients = Cliente.objects.all()
     for i in clients:
-        i.tipo = randrange(1, 3)
+        i.tipo = randrange(1, 4)
         i.save()
     return HttpResponse('<h1>Tipos añadidos</h1>')
