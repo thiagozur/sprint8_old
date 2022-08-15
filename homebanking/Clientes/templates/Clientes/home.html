@@ -24,6 +24,14 @@
 <div class="container arriba">
     <div class="card w-80 fondo-t">
         <div class="card-body">
+            <h1 class="card-title mb-4">Cliente tipo {{tipo}}</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container arriba">
+    <div class="card w-80 fondo-t">
+        <div class="card-body">
             <h1 class="card-title mb-4">Cuentas</h1>
             {% for acc in accounts %}
                 <h4 class="card-title titulo p-2">● {{acc.typeid.tipo}}</h4>

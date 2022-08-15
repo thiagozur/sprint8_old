@@ -62,6 +62,7 @@ def newuser(request):
         newuserform = NewUserForm()
     return render(request, 'Login/newuser.html', {'newuserform' : newuserform})
 
+#esta vista fue usada para crear los usuarios iniciales a partir de los clientes en la base de datos pero no es utilizada en el proyecto
 def createclients(request):
     clients = Cliente.objects.all()
     for i in clients:
@@ -69,6 +70,7 @@ def createclients(request):
         nuser.save()
     return HttpResponse('<h1>Usuarios creados</h1>')
 
+#esta vista fue usada para asignarle tipos de cliente a los clientes pero no es utilizada en el proyecto
 def addtypes(request):
     clients = Cliente.objects.all()
     for i in clients:
