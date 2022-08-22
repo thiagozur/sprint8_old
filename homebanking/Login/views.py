@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, HttpResponse
 from .forms import LoginForm, NewUserForm
 from django.contrib.auth import authenticate, login as dlogin
-from Clientes.models import Cliente
+from Clientes.models import Cliente, Empleado
 from django.contrib.auth.models import User
 from datetime import datetime
 from random import randrange
@@ -77,3 +77,17 @@ def addtypes(request):
         i.tipo = randrange(1, 4)
         i.save()
     return HttpResponse('<h1>Tipos añadidos</h1>')
+
+def createmp(request):
+    emps = Empleado.objects.all()
+    for i in emps:
+        nuser = User.objects.create_user(
+            username = f'{i.employee_name[0]}{i.employee_surname}{i.employee_id}',
+            password = i.employee_dni,
+            email = f'{i.employee_name[0]}{i.employee_surname}@gmail.com',
+            first_name = i.employee_name,
+            last_name = i.employee_surname
+            )
+        nuser.is_staff = True
+        nuser.save()
+    return HttpResponse('<h1>Empleados creados</h1>')

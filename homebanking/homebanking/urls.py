@@ -13,9 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from multiprocessing.connection import Client
 from django.contrib import admin
 from django.urls import path, include
-from Login import views
+from Clientes.models import Cliente
+from rest_framework import routers, serializers, viewsets
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = [
+            'customer_id',
+            'customer_name',
+            'customer_surname',
+            'customer_dni',
+            'dob',
+            'branch_id',
+            'tipo',
+        ]
+
+class ClientViewSet(viewsets.ModelViewSet):
+    queryset = Cliente.objects.all()
+    serializer_class = ClientSerializer
+
+router = routers.DefaultRouter()
+router.register(r'clientes', ClientViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +46,6 @@ urlpatterns = [
     path('tarjetas/', include('Tarjetas.urls', namespace='Tarjetas')),
     path('prestamos/', include('Prestamos.urls', namespace='Prestamos')),
     path('', include('Login.urls', namespace='Login')),
-    path('createclients/', views.createclients, name='createclients'),
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/', include(router.urls))
 ]
