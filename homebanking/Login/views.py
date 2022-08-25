@@ -80,14 +80,27 @@ def addtypes(request):
 
 def createmp(request):
     emps = Empleado.objects.all()
-    for i in emps:
-        nuser = User.objects.create_user(
-            username = f'{i.employee_name[0]}{i.employee_surname}{i.employee_id}',
-            password = i.employee_dni,
-            email = f'{i.employee_name[0]}{i.employee_surname}@gmail.com',
-            first_name = i.employee_name,
-            last_name = i.employee_surname
-            )
-        nuser.is_staff = True
-        nuser.save()
+    for y, i in enumerate(emps):
+        try:
+            nuser = User.objects.create_user(
+                username = f'{i.employee_name[0]}{i.employee_surname}{i.employee_id}',
+                password = i.employee_dni,
+                email = f'{i.employee_name[0]}{i.employee_surname}@gmail.com',
+                first_name = i.employee_name,
+                last_name = i.employee_surname
+                )
+            nuser.is_staff = True
+            nuser.save()
+        except:
+            nuser = User.objects.create_user(
+                username = f'{i.employee_name[0]}{i.employee_surname}{i.employee_id}{y}',
+                password = i.employee_dni,
+                email = f'{i.employee_name[0]}{i.employee_surname}@gmail.com',
+                first_name = i.employee_name,
+                last_name = i.employee_surname
+                )
+            nuser.is_staff = True
+            nuser.save()
+
+
     return HttpResponse('<h1>Empleados creados</h1>')

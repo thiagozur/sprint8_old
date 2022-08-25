@@ -13,11 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from multiprocessing.connection import Client
 from django.contrib import admin
 from django.urls import path, include
 from Clientes.models import Cliente
-from rest_framework import routers, serializers, viewsets
+from rest_framework import routers, serializers, viewsets,  permissions
+from rest_framework.permissions import SAFE_METHODS
 
 class ClientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -32,9 +32,15 @@ class ClientSerializer(serializers.ModelSerializer):
             'tipo',
         ]
 
+class IsAdminUserOrReadOnly(permissions.IsAdminUser):
+    def has_permission(self, request, view):
+        is_admin = super().has_permission(request, view)
+        return request.method in SAFE_METHODS or is_admin
+
 class ClientViewSet(viewsets.ModelViewSet):
     queryset = Cliente.objects.all()
     serializer_class = ClientSerializer
+    permission_classes = [permissions.IsAuthenticated, IsAdminUserOrReadOnly]
 
 router = routers.DefaultRouter()
 router.register(r'clientes', ClientViewSet)
