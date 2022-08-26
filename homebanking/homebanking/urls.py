@@ -24,6 +24,7 @@ from rest_framework import routers, serializers, viewsets,  permissions
 from rest_framework.permissions import SAFE_METHODS
 from django.db.models import Q
 from Tarjetas.models import Tarjetas
+from direr.models import Sucursal, Direcciones
 
 class IsAdminUserOrReadOnly(permissions.IsAdminUser):
     def has_permission(self, request, view):
@@ -136,6 +137,57 @@ class PrestamoViewSet(viewsets.ModelViewSet):
             print(qset)
             return super().get_queryset(*args, **kwargs).filter(eval(qset))
 
+class DireccionesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Direcciones
+        fields = [
+            'direccionid',
+            'calle',
+            'numero',
+            'ciudad',
+            'provincia',
+            'pais',
+            'customerid',
+            'employeeid',
+            'branchid',
+        ]
+
+class DireccionesViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Direcciones.objects.all()
+    serializer_class = DireccionesSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self, *args, **kwargs):
+        userobj = get_object_or_404(User, username=self.request.user)
+        if userobj.is_staff:
+            return super().get_queryset(*args, **kwargs)
+        else: 
+            uname = userobj.first_name
+            usurname = userobj.last_name
+            ufullname = uname[0] + usurname
+            uidt = userobj.username.split(ufullname)
+            if len(uidt) == 2:
+                uid = userobj.username.split(ufullname)[1]
+            else:
+                uid = userobj.id
+            clientobj = Cliente.objects.get(customer_id = uid)
+
+            return super().get_queryset(*args, **kwargs).filter(customerid = clientobj.customer_id)
+
+class SucursalSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sucursal
+        fields = [
+            'branch_id',
+            'branch_number',
+            'branch_name',
+            'branch_address_id',
+        ]
+
+class SucursalViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Sucursal.objects.all()
+    serializer_class = SucursalSerializer
+
 class TarjetaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tarjetas
@@ -171,11 +223,12 @@ class TarjetasViewSet(viewsets.ReadOnlyModelViewSet):
             clientobj = Cliente.objects.get(customer_id = uid)
             return super().get_queryset(*args, **kwargs).filter(customerid = clientobj.customer_id)
 
-
 router = routers.DefaultRouter()
 router.register(r'clientes', ClientViewSet)
 router.register(r'cuentas', CuentaViewSet)
 router.register(r'prestamos', PrestamoViewSet)
+router.register(r'direcciones', DireccionesViewSet)
+router.register(r'sucursales', SucursalViewSet)
 router.register(r'tarjetas', TarjetasViewSet)
 
 urlpatterns = [
