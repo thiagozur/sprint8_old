@@ -12,7 +12,7 @@ class MarcasTarjetas(models.Model):
 
 class Tarjetas(models.Model):
     tarjetaid = models.AutoField(db_column='TarjetaId', primary_key=True)  # Field name made lowercase.
-    numero = models.IntegerField(db_column='Numero')  # Field name made lowercase.
+    numero = models.CharField(max_length=500, db_column='Numero')  # Field name made lowercase.
     cvv = models.IntegerField(db_column='CVV')  # Field name made lowercase.
     fechaotorgamiento = models.TextField(db_column='FechaOtorgamiento')  # Field name made lowercase.
     fechaexpiracion = models.TextField(db_column='FechaExpiracion')  # Field name made lowercase.
